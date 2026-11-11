@@ -12,4 +12,8 @@ class LoginModel {
       error: jsons['error'],
     );
   }
+
+  factory LoginModel.issue(String? jsons, int rescode) {
+    return LoginModel(rescode: rescode, token: null, error: jsons);
+  }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:learn_app/core/utils/screen_utils.dart';
 import 'package:learn_app/features/auth/presentation/controllers/login_controller.dart';
 import 'package:learn_app/features/auth/presentation/widgets/text_field.dart';
+import 'package:learn_app/shared/pressable_btn.dart';
 import 'package:provider/provider.dart';
 
 class LoginMobile extends StatefulWidget {
@@ -71,46 +72,7 @@ class _LoginMobileState extends State<LoginMobile> {
                 controller: controller.passwordController,
               ),
               SizedBox(height: size.height * 0.02),
-              GestureDetector(
-                onTapDown: (_) {
-                  setState(() {
-                    isPress = true;
-                  });
-                },
-                onTapUp: (_) {
-                  setState(() {
-                    isPress = false;
-                  });
-                },
-                onTapCancel: () {
-                  setState(() {
-                    isPress = false;
-                  });
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 100),
-                  curve: Curves.easeInOut,
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(15),
-                  transform: Matrix4.translationValues(
-                    isPress ? 5 : 0,
-                    isPress ? 5 : 0,
-                    0,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                    border: Border.all(color: Colors.black, width: 2),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black,
-                        offset: isPress ? Offset.zero : const Offset(5, 5),
-                      ),
-                    ],
-                  ),
-                  child: const Text('Login', textAlign: TextAlign.center),
-                ),
-              ),
+              PressableButton(isPress: isPress, title: 'Login'),
             ],
           ),
         ),

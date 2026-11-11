@@ -5,9 +5,10 @@ import 'package:learn_app/features/auth/data/models/login_model.dart';
 import 'package:learn_app/features/auth/data/services/login_service.dart';
 
 class LoginController extends ChangeNotifier {
-  // final AuthRepo authRepo;
+  final AuthService authService;
 
-  // LoginController({required this.authRepo});
+  LoginController({required this.authService});
+
   TextEditingController userController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -35,7 +36,10 @@ class LoginController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final result = await AuthService.login();
+      final result = await authService.login(
+        'eve.holt@reqres.in',
+        'citdfdfgdfggyslicka',
+      );
 
       if (result.token != null) {
         log('Login Success: ${result.token}');
