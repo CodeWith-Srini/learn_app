@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 class TwoDButton extends StatefulWidget {
-  const TwoDButton({super.key, required this.iconnew});
+  const TwoDButton({super.key, required this.iconnew, this.onPressed});
 
   final IconData iconnew;
+  final VoidCallback? onPressed;
 
   @override
   State<TwoDButton> createState() => _TwoDButtonState();
@@ -18,6 +19,7 @@ class _TwoDButtonState extends State<TwoDButton> {
       onTapDown: (_) => setState(() => isPress = true),
       onTapUp: (_) => setState(() => isPress = false),
       onTapCancel: () => setState(() => isPress = false),
+      onTap: widget.onPressed,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeOut,

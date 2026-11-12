@@ -30,7 +30,7 @@ class LoginController extends ChangeNotifier {
     super.dispose();
   }
 
-  Future<void> login() async {
+  Future<bool> login() async {
     isLoading = true;
     errorMessage = null;
     notifyListeners();
@@ -43,13 +43,16 @@ class LoginController extends ChangeNotifier {
 
       if (result.token != null) {
         log('Login Success: ${result.token}');
+        return true;
       } else {
         errorMessage = result.error ?? 'Login failed';
         log('Login Failed: $errorMessage');
+        return false;
       }
     } catch (e) {
       errorMessage = e.toString();
       log('Exception: $errorMessage');
+      return false;
     } finally {
       isLoading = false;
       notifyListeners();

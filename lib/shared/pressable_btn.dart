@@ -2,30 +2,40 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class PressableButton extends StatefulWidget {
-  PressableButton({super.key, required this.isPress, required this.title});
-  bool isPress;
-  String title;
+  const PressableButton({
+    super.key,
+    this.title,
+    this.onPressed,
+    this.iconnew,
+    required this.width,
+  });
+
+  final String? title;
+  final VoidCallback? onPressed;
+  final IconData? iconnew;
+  final double? width;
 
   @override
   State<PressableButton> createState() => _PressableButtonState();
 }
 
 class _PressableButtonState extends State<PressableButton> {
+  bool isPress = false;
   void onPressDown(TapDownDetails details) {
     setState(() {
-      widget.isPress = true;
+      isPress = true;
     });
   }
 
   void onPressUp(TapUpDetails details) {
     setState(() {
-      widget.isPress = false;
+      isPress = false;
     });
   }
 
   void onPressCancel() {
     setState(() {
-      widget.isPress = false;
+      isPress = false;
     });
   }
 
@@ -35,14 +45,15 @@ class _PressableButtonState extends State<PressableButton> {
       onTapDown: onPressDown,
       onTapUp: onPressUp,
       onTapCancel: onPressCancel,
+      onTap: widget.onPressed,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeInOut,
-        width: double.infinity,
+        width: widget.width,
         padding: const EdgeInsets.all(15),
         transform: Matrix4.translationValues(
-          widget.isPress ? 5 : 0,
-          widget.isPress ? 5 : 0,
+          isPress ? 5 : 0,
+          isPress ? 5 : 0,
           0,
         ),
         decoration: BoxDecoration(
@@ -52,11 +63,14 @@ class _PressableButtonState extends State<PressableButton> {
           boxShadow: [
             BoxShadow(
               color: Colors.black,
-              offset: widget.isPress ? Offset.zero : const Offset(5, 5),
+              offset: isPress ? Offset.zero : const Offset(5, 5),
             ),
           ],
         ),
-        child: Text(widget.title, textAlign: TextAlign.center),
+        child:
+            widget.iconnew != null
+                ? Icon(widget.iconnew, color: Colors.black, size: 22)
+                : Text(widget.title!, textAlign: TextAlign.center),
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:learn_app/core/utils/screen_utils.dart';
 import 'package:learn_app/features/auth/presentation/controllers/login_controller.dart';
@@ -72,7 +73,19 @@ class _LoginMobileState extends State<LoginMobile> {
                 controller: controller.passwordController,
               ),
               SizedBox(height: size.height * 0.02),
-              PressableButton(isPress: isPress, title: 'Login'),
+              PressableButton(
+                title: 'Login',
+                width: double.infinity,
+                onPressed: () async {
+                  final success = await controller.login();
+
+                  if (!context.mounted) return;
+
+                  if (success) {
+                    context.go('/mobile_dashboard');
+                  }
+                },
+              ),
             ],
           ),
         ),
