@@ -76,6 +76,7 @@ class _LoginMobileState extends State<LoginMobile> {
               PressableButton(
                 title: 'Login',
                 width: double.infinity,
+                padding: 15,
                 onPressed: () async {
                   final success = await controller.login();
 

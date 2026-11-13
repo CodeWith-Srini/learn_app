@@ -7,13 +7,17 @@ class PressableButton extends StatefulWidget {
     this.title,
     this.onPressed,
     this.iconnew,
+    this.iconsize,
     required this.width,
+    required this.padding,
   });
 
   final String? title;
   final VoidCallback? onPressed;
   final IconData? iconnew;
+  final double? iconsize;
   final double? width;
+  final double padding;
 
   @override
   State<PressableButton> createState() => _PressableButtonState();
@@ -50,7 +54,7 @@ class _PressableButtonState extends State<PressableButton> {
         duration: const Duration(milliseconds: 100),
         curve: Curves.easeInOut,
         width: widget.width,
-        padding: const EdgeInsets.all(15),
+        padding: EdgeInsets.all(widget.padding),
         transform: Matrix4.translationValues(
           isPress ? 5 : 0,
           isPress ? 5 : 0,
@@ -67,10 +71,20 @@ class _PressableButtonState extends State<PressableButton> {
             ),
           ],
         ),
-        child:
-            widget.iconnew != null
-                ? Icon(widget.iconnew, color: Colors.black, size: 22)
-                : Text(widget.title!, textAlign: TextAlign.center),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            if (widget.iconnew != null)
+              Icon(widget.iconnew, color: Colors.black, size: widget.iconsize),
+            if (widget.title != null)
+              Text(widget.title!, textAlign: TextAlign.center),
+          ],
+        ),
+
+        // child:
+        //     widget.iconnew != null
+        //         ? Icon(widget.iconnew, color: Colors.black, size: 22)
+        //         : Text(widget.title!, textAlign: TextAlign.center),
       ),
     );
   }
